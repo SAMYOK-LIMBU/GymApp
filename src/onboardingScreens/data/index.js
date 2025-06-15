@@ -1,20 +1,22 @@
+import { onboardfirst, onboardSecond, onboardThird } from '../../assets';
+
 export const OnboardingScreenData = [
   {
     id: '1',
-    title: 'Welcome to ABC Gym',
+    title: 'Welcome to Aerorobic Fitness',
     description: 'Track your workouts and stay fit with ease.',
-    // image: require('./assets/slide1.png'),
+    image: onboardfirst,
   },
   {
     id: '2',
-    title: 'Welcome to ABC Gym',
+    title: 'Welcome to Aerorobic Fitness',
     description: 'Track your workouts and stay fit with ease.',
-    // image: require('./assets/slide1.png'),
+    image: onboardSecond,
   },
   {
     id: '3',
-    title: 'Welcome to ABC Gym',
+    title: 'Welcome to Aerorobic Fitness',
     description: 'Track your workouts and stay fit with ease.',
-    // image: require('./assets/slide1.png'),
+    image: onboardThird,
   },
 ];

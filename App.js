@@ -1,28 +1,40 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import PreloginScreen from './src/onboardingScreens/PreloginScreen';
+import colors from './src/utils/colors';
+import Navigation from './src/navigation/Navigation';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
+  const backgroundStyle = {
+    flex: 1,
+    // backgroundColor: isDarkMode ? colors.primaryColor : '#fff',
+    backgroundColor: colors.white,
+    paddingBottom: hp(3),
+  };
+
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NewAppScreen templateFileName="App.tsx" />
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView style={backgroundStyle} edges={['top', 'bottom']}>
+        <StatusBar
+          // translucent={true}
+          backgroundColor={colors.white}
+          barStyle={'dark-content'}
+        />
+        <Navigation />
+        {/* <PreloginScreen /> */}
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;

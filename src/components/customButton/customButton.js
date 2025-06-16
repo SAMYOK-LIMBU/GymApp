@@ -29,7 +29,7 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   button: {
-    width: wp(0),
+    width: '100%',
     alignItems: 'center',
     backgroundColor: colors.primaryDark,
     padding: wp(4),

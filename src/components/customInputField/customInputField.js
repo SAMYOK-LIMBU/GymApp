@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { TextInput, View, Text, StyleSheet } from 'react-native';
+import {
+  TextInput,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import EyeIcon from 'react-native-vector-icons/Ionicons';
 import {
@@ -20,6 +26,7 @@ const CustomInputField = ({
   iconName = 'user',
 }) => {
   const [focused, setFocused] = useState(false);
+  const [isSecured, setIsSecured] = useState(secureTextEntry);
 
   const handleFocus = e => {
     setFocused(true);
@@ -32,35 +39,57 @@ const CustomInputField = ({
   };
 
   return (
-    <View style={[styles.container, { borderWidth: focused ? 3 : 1 }]}>
-      {iconName ? (
-        <Icon
-          name={iconName}
-          size={26}
-          color={colors.primaryDark}
-          style={styles.icon}
+    <View>
+      <View
+        style={[
+          styles.container,
+          error && { borderColor: 'red' },
+          { borderWidth: focused ? 3 : 1 },
+        ]}
+      >
+        {iconName ? (
+          <EyeIcon
+            name={iconName}
+            size={24}
+            color={colors.primaryDark}
+            style={styles.icon}
+          />
+        ) : null}
+        <TextInput
+          style={[styles.input, { flex: 1 }]}
+          value={value}
+          onChangeText={onChangeText}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          placeholder={placeholder}
+          secureTextEntry={isSecured}
+          placeholderTextColor={placeholderTextColor}
         />
-      ) : null}
-      <TextInput
-        style={[styles.input, error && { borderColor: 'red' }, { flex: 1 }]}
-        value={value}
-        onChangeText={onChangeText}
-        onBlur={handleBlur}
-        onFocus={handleFocus}
-        placeholder={placeholder}
-        secureTextEntry={secureTextEntry}
-        placeholderTextColor={placeholderTextColor}
-      />
-      {secureTextEntry ? (
-        <EyeIcon
-          name={'eye'}
-          size={26}
-          color={colors.primaryDark}
-          style={styles.icon}
-        />
-      ) : (
-        <View style={{ width: 26, height: 26 }} />
-      )}
+        {secureTextEntry ? (
+          isSecured ? (
+            <TouchableOpacity onPress={() => setIsSecured(!isSecured)}>
+              <EyeIcon
+                name={'eye'}
+                size={26}
+                color={colors.primaryDark}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={() => setIsSecured(!isSecured)}>
+              <EyeIcon
+                name={'eye-off'}
+                size={24}
+                color={colors.primaryDark}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+          )
+        ) : (
+          <View style={{ width: 24, height: 24 }} />
+        )}
+      </View>
+      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -86,6 +115,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   errorText: {
+    marginLeft: wp(4),
     color: 'red',
   },
 });

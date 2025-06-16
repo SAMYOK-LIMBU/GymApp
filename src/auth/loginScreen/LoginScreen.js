@@ -29,7 +29,7 @@ const schema = yup.object().shape({
     .required('Password is required'),
 });
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const {
     control,
     handleSubmit,
@@ -63,7 +63,7 @@ const LoginScreen = () => {
               error={errors.email?.message}
               keyboardType="email-address"
               autoCapitalize="none"
-              iconName="user"
+              iconName="mail"
             />
           )}
         />
@@ -78,16 +78,15 @@ const LoginScreen = () => {
               onBlur={onBlur}
               error={errors.password?.message}
               secureTextEntry
-              iconName="lock"
+              iconName="lock-closed"
               onFocus={onFocus}
             />
           )}
         />
-        <View style={{ marginTop: hp(6) }}>
+        <View style={{ marginTop: hp(6), width: '100%' }}>
           <CustomButton
             title="Login"
             onPress={handleSubmit(onSubmit)}
-            contentStyle={{ width: wp(90) }}
             textColor={colors.white}
           />
         </View>
@@ -96,9 +95,17 @@ const LoginScreen = () => {
             <Text>Forgot Password?</Text>
           </TouchableOpacity>
           <View style={styles.bottomContainer}>
-            <Text>Already have an account? </Text>
-            <TouchableOpacity>
-              <Text style={{ textDecorationLine: 'underline' }}>Sign In</Text>
+            <Text>Create an account? </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('RegisterScreen');
+              }}
+            >
+              <Text
+                style={{ textDecorationLine: 'underline', fontWeight: 'bold' }}
+              >
+                Sign Up
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
